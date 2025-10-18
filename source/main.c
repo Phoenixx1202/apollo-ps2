@@ -163,7 +163,7 @@ static const char* get_menu_help(int id)
 	case MENU_USB_SAVES:
 	case MENU_MEMCARD_SAVES:
 	case MENU_ONLINE_DB:
-		return "\x10 Selecionar    \x13 Voltar    \x12 Detalhes    \x11 Atualizar";
+		return "\x10 Selecionar   \x13 Voltar   \x12 Detalhes   \x11 Atualizar";
 
 	case MENU_HEX_EDITOR:
 		return "\x10 Aumentar Valor  \x11 Diminuir Valor   \x13 Sair";
