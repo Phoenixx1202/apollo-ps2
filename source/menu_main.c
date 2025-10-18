@@ -74,7 +74,7 @@ static int ReloadUserSaves(save_list_t* save_list)
 	if (save_list->UpdatePath)
 		save_list->UpdatePath(save_list->path);
 
-	init_loading_screen("Loading saves...");
+	init_loading_screen("Carregando dados salvos...");
 
 	save_list->list = save_list->ReadList(save_list->path);
 	if (apollo_config.doSort == SORT_BY_NAME)
@@ -88,7 +88,7 @@ static int ReloadUserSaves(save_list_t* save_list)
 
 	if (!save_list->list)
 	{
-		show_message("No save-games found");
+		show_message("Nenhum jogo salvo encontrado");
 		return 0;
 	}
 
@@ -113,7 +113,7 @@ static code_entry_t* LoadSaveDetails(void)
 	centry->name = strdup(selected_entry->title_id);
 
 	if (!get_save_details(selected_entry, &centry->codes))
-		asprintf(&centry->codes, "Error getting details (%s)", selected_entry->name);
+		asprintf(&centry->codes, "Falha ao obter detalhes (%s)", selected_entry->name);
 
 	LOG("%s", centry->codes);
 	return (centry);
@@ -316,7 +316,7 @@ static void SetMenu(int id)
 		case MENU_PATCH_VIEW: //Cheat View Menu
 			menu_old_sel[MENU_PATCH_VIEW] = 0;
 			if (apollo_config.doAni)
-				Draw_CheatsMenu_View_Ani("Patch view");
+				Draw_CheatsMenu_View_Ani("Visualização de Patch");
 			break;
 
 		case MENU_SAVE_DETAILS: //Save Detail View Menu
@@ -456,7 +456,7 @@ static void doSaveMenu(save_list_t * save_list)
 
 		if (!selected_entry->codes && !save_list->ReadCodes(selected_entry))
 		{
-			show_message("No data found in folder:\n%s", selected_entry->path);
+			show_message("Nenhum dado encontrado na pasta:\n%s", selected_entry->path);
 			return;
 		}
 
@@ -512,7 +512,7 @@ static void doMainMenu(void)
 		return;
 	}
 
-	else if(ps2PadGetButtonPressed(PAD_CIRCLE) && show_dialog(DIALOG_TYPE_YESNO, "Exit the app?"))
+	else if(ps2PadGetButtonPressed(PAD_CIRCLE) && show_dialog(DIALOG_TYPE_YESNO, "Sair do aplicativo?"))
 		close_app = 1;
 	
 	Draw_MainMenu();
@@ -650,7 +650,7 @@ static void doHexEditor(void)
 
 	else if (ps2PadGetButtonPressed(PAD_CIRCLE))
 	{
-		if (show_dialog(DIALOG_TYPE_YESNO, "Save changes to %s?", strrchr(hex_data.filepath, '/') + 1) &&
+		if (show_dialog(DIALOG_TYPE_YESNO, "Salvar alterações em %s?", strrchr(hex_data.filepath, '/') + 1) &&
 			(write_buffer(hex_data.filepath, hex_data.data, hex_data.size) == SUCCESS))
 		{
 //			selected_centry->options[option_index].value[menu_sel][1] = CMD_IMPORT_DATA_FILE;
@@ -709,7 +709,7 @@ static void doPatchViewMenu(void)
 		return;
 	}
 	
-	Draw_CheatsMenu_View("Patch view");
+	Draw_CheatsMenu_View("Visualização de Patch");
 }
 
 static void doCodeOptionsMenu(void)
@@ -745,7 +745,7 @@ static void doCodeOptionsMenu(void)
 				snprintf(hex_data.filepath, sizeof(hex_data.filepath), "%s%s", selected_entry->path, optval->name);
 				if (read_buffer(hex_data.filepath, &hex_data.data, &hex_data.size) < 0)
 				{
-					show_message("Unable to load\n%s", hex_data.filepath);
+					show_message("Não é possível carregar\n%s", hex_data.filepath);
 					SetMenu(last_menu_id[MENU_CODE_OPTIONS]);
 					return;
 				}

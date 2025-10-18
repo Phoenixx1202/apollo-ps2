@@ -57,7 +57,7 @@ static void drawDialog(const char* msg, const char *dialog_opts[], int selected)
         }
     }
 
-    DrawString(0, dialog_rect.y + DIALOG_WINDOW_HEIGHT - 30, "\x10 OK   \x13 Cancel");
+    DrawString(0, dialog_rect.y + DIALOG_WINDOW_HEIGHT - 30, "\x10 OK   \x13 Cancelar");
     SetFontAlign(FONT_ALIGN_LEFT);
 }
 
@@ -66,7 +66,7 @@ int show_dialog(int tdialog, const char * format, ...)
     va_list opt;
     char buf[512];
     const char* ok_opt[] = {"\x10 OK", NULL};
-    const char* yesno_opt[] = {"\x10 Yes   \x13 No", NULL};
+    const char* yesno_opt[] = {"\x10 Sim  \x13 Não", NULL};
 
     va_start(opt, format);
     vsnprintf(buf, sizeof(buf), format, opt);
