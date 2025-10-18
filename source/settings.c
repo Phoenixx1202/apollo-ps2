@@ -61,7 +61,7 @@ menu_option_t menu_options[] = {
 		.value = NULL, 
 		.callback = clearcache_callback 
 	},
-	{ .name = "Enable Debug Log",
+	{ .name = "Habilitar Log de Depuração",
 		.options = NULL,
 		.type = APP_OPTION_CALL,
 		.value = NULL,
