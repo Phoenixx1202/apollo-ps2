@@ -14,7 +14,7 @@
 
 char *strcasestr(const char *, const char *);
 static const char* ext_src[MAX_USB_DEVICES+1] = {"mass:/", "host:/", "cdfs:/", NULL};
-static const char* sort_opt[] = {"Disabled", "by Name", "by Title ID", "by Type", NULL};
+static const char* sort_opt[] = {"Desativado", "Por Nome", "Por ID do Título", "Por Tipo", NULL};
 
 menu_option_t menu_options[] = {
 	{ .name = "\nMúsica de Fundo", 
@@ -29,13 +29,13 @@ menu_option_t menu_options[] = {
 		.value = &apollo_config.doAni, 
 		.callback = ani_callback 
 	},
-	{ .name = "Sort Saves", 
+	{ .name = "Ordenar Dados Salvos", 
 		.options = (char**) sort_opt,
 		.type = APP_OPTION_LIST,
 		.value = &apollo_config.doSort, 
 		.callback = sort_callback 
 	},
-	{ .name = "External Saves Source",
+	{ .name = "Fonte de Dados Salvos Externos",
 		.options = (char**) ext_src,
 		.type = APP_OPTION_LIST,
 		.value = &apollo_config.storage,
@@ -55,7 +55,7 @@ menu_option_t menu_options[] = {
 		.callback = upd_appdata_callback 
 	},
 */
-	{ .name = "Clear Local Cache", 
+	{ .name = "Limpar Cache Local", 
 		.options = NULL, 
 		.type = APP_OPTION_CALL, 
 		.value = NULL, 
@@ -93,10 +93,10 @@ void ani_callback(int sel)
 
 void clearcache_callback(int sel)
 {
-	LOG("Cleaning folder '%s'...", APOLLO_LOCAL_CACHE);
+	LOG("Limpando pasta '%s'...", APOLLO_LOCAL_CACHE);
 	clean_directory(APOLLO_LOCAL_CACHE);
 
-	show_message("Local cache folder cleaned:\n" APOLLO_LOCAL_CACHE);
+	show_message("Pasta do Cache Local Limpa:\n" APOLLO_LOCAL_CACHE);
 }
 
 void upd_appdata_callback(int sel)
@@ -105,14 +105,14 @@ void upd_appdata_callback(int sel)
 
 	if (!http_download(ONLINE_PATCH_URL, "apollo-psp-update.zip", APOLLO_LOCAL_CACHE "appdata.zip", 1))
 	{
-		show_message("Error! Can't download data update pack!");
+		show_message("Erro! Não é possível baixar o pacote de atualização de dados!");
 		return;
 	}
 
 	if ((i = extract_zip(APOLLO_LOCAL_CACHE "appdata.zip", APOLLO_DATA_PATH)) > 0)
-		show_message("Successfully updated %d data files!", i);
+		show_message("%d Arquivos de dados foram atualizados com êxito!", i);
 	else
-		show_message("Error! Can't extract data update pack!");
+		show_message("Erro! Falha ao extrair o pacote de atualização de dados!");
 
 	unlink_secure(APOLLO_LOCAL_CACHE "appdata.zip");
 }
@@ -124,11 +124,11 @@ void update_callback(int sel)
     if (!apollo_config.update)
         return;
 
-	LOG("checking latest Apollo version at %s", APOLLO_UPDATE_URL);
+	LOG("Verificando a versão mais recente do Apollo em %s", APOLLO_UPDATE_URL);
 
 	if (!http_download(APOLLO_UPDATE_URL, NULL, APOLLO_LOCAL_CACHE "ver.check", 0))
 	{
-		LOG("http request to %s failed", APOLLO_UPDATE_URL);
+		LOG("A solicitação HTTP para %s falhou", APOLLO_UPDATE_URL);
 		return;
 	}
 
@@ -140,31 +140,31 @@ void update_callback(int sel)
 	if (!buffer)
 		return;
 
-	LOG("received %ld bytes", size);
+	LOG("%ld bytes recebidos", size);
 
 	static const char find[] = "\"name\":\"Apollo Save Tool v";
 	const char* start = strstr(buffer, find);
 	if (!start)
 	{
-		LOG("no name found");
+		LOG("Nome não encontrado");
 		goto end_update;
 	}
 
-	LOG("found name");
+	LOG("Nome encontrado");
 	start += sizeof(find) - 1;
 
 	char* end = strchr(start, '"');
 	if (!end)
 	{
-		LOG("no end of name found");
+		LOG("Fim do nome não encontrado");
 		goto end_update;
 	}
 	*end = 0;
-	LOG("latest version is %s", start);
+	LOG("A versão mais recente é %s", start);
 
 	if (strcasecmp(APOLLO_VERSION, start) == 0)
 	{
-		LOG("no need to update");
+		LOG("Não precisa atualizar");
 		goto end_update;
 	}
 
@@ -176,19 +176,19 @@ void update_callback(int sel)
 	end = strchr(start, '"');
 	if (!end)
 	{
-		LOG("no download URL found");
+		LOG("URL de download não encontrada");
 		goto end_update;
 	}
 
 	*end = 0;
-	LOG("download URL is %s", start);
+	LOG("A URL de download é %s", start);
 
-	if (show_dialog(DIALOG_TYPE_YESNO, "New version available! Download update?"))
+	if (show_dialog(DIALOG_TYPE_YESNO, "Nova versão disponível! Baixar atualização?"))
 	{
 		if (http_download(start, NULL, "ms0:/APOLLO/apollo-psp.zip", 1))
-			show_message("Update downloaded to ms0:/APOLLO/apollo-psp.zip");
+			show_message("Atualização baixada para ms0:/APOLLO/apollo-psp.zip");
 		else
-			show_message("Download error!");
+			show_message("Erro de Download!");
 	}
 
 end_update:
@@ -204,7 +204,7 @@ void owner_callback(int sel)
 void log_callback(int sel)
 {
 	dbglogger_init_mode(FILE_LOGGER, USB_PATH "apollo.log", 1);
-	show_message("Debug Logging Enabled!\n\n" USB_PATH "apollo.log");
+	show_message("Log de Depuração Habilitado!\n\n" USB_PATH "apollo.log");
 }
 
 int save_app_settings(app_config_t* config)
@@ -219,7 +219,7 @@ int save_app_settings(app_config_t* config)
 		return 0;
 	}
 
-	LOG("Saving Settings...");
+	LOG("Salvando Configurações...");
 	if (file_exists(filePath) != SUCCESS)
 	{
 		uLong destLen = size_icon_sys;
@@ -240,7 +240,7 @@ int save_app_settings(app_config_t* config)
 	snprintf(filePath, sizeof(filePath), "%s%s%s", MC0_PATH, "APOLLO-99PS2/", "SETTINGS.BIN");
 	if (write_buffer(filePath, (uint8_t*) config, sizeof(app_config_t)) < 0)
 	{
-		LOG("Error saving settings!");
+		LOG("Erro ao Salvar Configurações!");
 		return 0;
 	}
 
@@ -257,18 +257,18 @@ int load_app_settings(app_config_t* config)
 
 	snprintf(filePath, sizeof(filePath), "%s%s%s", MC0_PATH, "APOLLO-99PS2/", "SETTINGS.BIN");
 
-	LOG("Loading Settings...");
+	LOG("Carregando Configurações...");
 	if (read_buffer(filePath, (uint8_t**) &file_data, &file_size) == SUCCESS && file_size == sizeof(app_config_t))
 	{
 		file_data->user_id = config->user_id;
 		memcpy(config, file_data, file_size);
 
-		LOG("Settings loaded: UserID (%08x)", config->user_id);
+		LOG("Configurações carregadas: ID do Usuário (%08x)", config->user_id);
 		free(file_data);
 	}
 	else
 	{
-		LOG("Settings not found, using defaults");
+		LOG("Configurações não encontradas, usando padrões");
 		save_app_settings(config);
 		return 0;
 	}
