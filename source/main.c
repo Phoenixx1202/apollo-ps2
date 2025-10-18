@@ -163,25 +163,25 @@ static const char* get_menu_help(int id)
 	case MENU_USB_SAVES:
 	case MENU_MEMCARD_SAVES:
 	case MENU_ONLINE_DB:
-		return "\x10 Select    \x13 Back    \x12 Details    \x11 Refresh";
+		return "\x10 Selecionar    \x13 Voltar    \x12 Detalhes    \x11 Atualizar";
 
 	case MENU_HEX_EDITOR:
-		return "\x10 Value Up  \x11 Value Down   \x13 Exit";
+		return "\x10 Aumentar Valor  \x11 Diminuir Valor   \x13 Sair";
 
 	case MENU_CREDITS:
 	case MENU_PATCH_VIEW:
 	case MENU_SAVE_DETAILS:
-		return "\x13 Back";
+		return "\x13 Voltar";
 
 	case MENU_USER_BACKUP:
-		return "\x10 Select    \x13 Back    \x11 Refresh";
+		return "\x10 Selecionar    \x13 Voltar    \x11 Atualizar";
 
 	case MENU_SETTINGS:
 	case MENU_CODE_OPTIONS:
-		return "\x10 Select    \x13 Back";
+		return "\x10 Selecionar    \x13 Voltar";
 
 	case MENU_PATCHES:
-		return "\x10 Select    \x12 View Code    \x13 Back";
+		return "\x10 Selecionar    \x12 Ver Código    \x13 Voltar";
 	}
 
 	return "";
@@ -321,7 +321,7 @@ void update_hdd_path(char* path)
 	path[0] = 0;
 	if (dir_exists(MC0_PATH) == SUCCESS && dir_exists(MC1_PATH) == SUCCESS)
 	{
-		if ((sel = show_multi_dialog(memcard_opt, "Select Memory Card")) < 0)
+		if ((sel = show_multi_dialog(memcard_opt, "Selecionar Memory Card")) < 0)
 			return;
 
 		strcpy(path, sel ? MC1_PATH : MC0_PATH);
@@ -405,7 +405,7 @@ static void terminate(void)
 	char bootpath[28] = "mc0:/BADATA-SYSTEM/BOOT.ELF";
 	char region[4] = {'A', 'E', 'I', 'C'};
 
-	LOG("Exiting...");
+	LOG("Saindo...");
 
 	AHX_Quit();
 	sbv_patch_disable_prefix_check();
@@ -431,7 +431,7 @@ static int initInternal(void)
 	SifInitRpc(0);
 
 	if(mcInit(MC_TYPE_XMC) < 0) {
-		LOG("Failed to initialise memcard server!");
+		LOG("Falha ao iniciar o servidor do memory card!");
 		return(0);
 	}
 
@@ -507,7 +507,7 @@ int main(int argc, char *argv[])
 	{
 //		clean_directory(APOLLO_DATA_PATH);
 		if (extract_zip(APOLLO_LOCAL_CACHE "appdata.zip", APOLLO_DATA_PATH))
-			show_message("Successfully installed local application data");
+			show_message("Dados de aplicativo local instalados com sucesso");
 
 		unlink_secure(APOLLO_LOCAL_CACHE "appdata.zip");
 	}
