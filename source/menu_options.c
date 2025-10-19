@@ -62,7 +62,7 @@ void Draw_OptionsMenu_Ani(void)
     for (ani = 0; ani < MENU_ANI_MAX; ani++)
     {
         SDL_RenderClear(renderer);
-        DrawHeader_Ani(cat_opt_png_index, "Configurações-1", NULL, APP_FONT_TITLE_COLOR, 0xffffffff, ani, 12);
+        DrawHeader_Ani(cat_opt_png_index, "Configurações", NULL, APP_FONT_TITLE_COLOR, 0xffffffff, ani, 12);
         
 		u8 icon_a = (u8)(((ani * 2) > 0xFF) ? 0xFF : (ani * 2));
         int _game_a = (int)(icon_a - (MENU_ANI_MAX / 2)) * 2;
