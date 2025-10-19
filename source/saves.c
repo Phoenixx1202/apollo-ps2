@@ -239,13 +239,13 @@ static void _addBackupCommands(save_entry_t* item)
 		cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_COPY " Copiar arquivos salvos", CMD_CODE_NULL);
 		cmd->options_count = 1;
 		cmd->options = (item->flags & SAVE_FLAG_MEMCARD) ?
-			_createExtOptions(1, "Copiar Dado Salvo para Armazenamento", CMD_COPY_SAVE_USB) :
+			_createExtOptions(1, "Copiar Dado Salvo para Arm.", CMD_COPY_SAVE_USB) :
 			_createMcOptions(1, "Copiar Dado Salvo para Memory Card", CMD_COPY_SAVE_HDD);
 		list_append(item->codes, cmd);
 
 		cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_ZIP " Exportar arquivos salvos para Zip", CMD_CODE_NULL);
 		cmd->options_count = 1;
-		cmd->options = _createExtOptions(1, "Exportar Zip para Dispositivo de Armazenamento", CMD_EXPORT_ZIP_USB);
+		cmd->options = _createExtOptions(1, "Exportar Zip para Dispositivo de Arm.", CMD_EXPORT_ZIP_USB);
 		list_append(item->codes, cmd);
 	}
 

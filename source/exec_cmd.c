@@ -1064,12 +1064,12 @@ static void exportSaveFile(const save_entry_t* entry, const char* filename)
 	{
 		strlcat(path, filename, sizeof(path));
 if(0)//		if (entry->flags & SAVE_FLAG_PSP && !psp_DecryptSavedata(entry->path, path, key))
-			show_message("Erro! Falha ao exportar o arquivo %s", filename);
+			show_message("Erro! Falha ao exportar %s", filename);
 
 		show_message("Arquivo exportado com sucesso para:\n%s", path);
 	}
 	else
-		show_message("Erro! Falha ao exportar o arquivo %s", filename);
+		show_message("Erro! Falha ao exportar %s", filename);
 }
 
 static void importSaveFile(const save_entry_t* entry, const char* filename)
@@ -1089,12 +1089,12 @@ static void importSaveFile(const save_entry_t* entry, const char* filename)
 	if (_copy_save_file(path, entry->path, filename))
 	{
 if(0)//		if (entry->flags & SAVE_FLAG_PSP && !psp_EncryptSavedata(entry->path, filename, key))
-			show_message("Erro! Não foi possível importar o arquivo %s", filename);
+			show_message("Erro! Não foi possível importar %s", filename);
 
 		show_message("Arquivo importado com sucesso para:\n%s%s", entry->path, filename);
 	}
 	else
-		show_message("Erro! Não foi possível importar o arquivo %s", filename);
+		show_message("Erro! Não foi possível importar %s", filename);
 }
 
 static void downloadLink(const char* path)
