@@ -1367,12 +1367,12 @@ list_t * ReadUserList(const char* userPath)
 	cmd->options = _createExtOptions(1, "Copiar Dados para Arm.", CMD_COPY_SAVES_USB);
 	list_append(item->codes, cmd);
 
-	cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_COPY " Copy all Saves to Backup Storage", CMD_CODE_NULL);
+	cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_COPY " Copiar todos os Dados para Arm.", CMD_CODE_NULL);
 	cmd->options_count = 1;
 	cmd->options = _createExtOptions(1, "Copiar Dados para Arm.", CMD_COPY_ALL_SAVES_USB);
 	list_append(item->codes, cmd);
 
-	cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_COPY " .PSU Export selected Saves to Backup Storage", CMD_CODE_NULL);
+	cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_COPY " .PSU Exportar Dados selecionados para Arm.", CMD_CODE_NULL);
 	if (mctype == sceMcTypePS1)
 		memcpy(cmd->name +3, "MCS", 3);
 
@@ -1380,7 +1380,7 @@ list_t * ReadUserList(const char* userPath)
 	cmd->options = _createExtOptions(1, "Copiar Dados para Arm.", CMD_EXPORT_SAVES);
 	list_append(item->codes, cmd);
 
-	cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_COPY " .PSU Export All Saves to Backup Storage", CMD_CODE_NULL);
+	cmd = _createCmdCode(PATCH_COMMAND, CHAR_ICON_COPY " .PSU Exportar todos os Dados para Arm.", CMD_CODE_NULL);
 	if (mctype == sceMcTypePS1)
 		memcpy(cmd->name +3, "MCS", 3);
 
